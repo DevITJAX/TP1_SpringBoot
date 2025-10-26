@@ -1,0 +1,48 @@
+# ==== TYPES ====
+
+type Produit {
+    id: ID
+    nom: String
+    prix: Float
+    categorie: Categorie
+}
+
+type Categorie {
+    id: ID
+    nom: String
+    produits: [Produit]
+}
+
+# ==== QUERIES ====
+
+type Query {
+    produits: [Produit]
+    produit(id: ID!): Produit
+    categories: [Categorie]
+    categorie(id: ID!): Categorie
+}
+
+# ==== INPUTS ====
+
+input ProduitInput {
+    nom: String
+    prix: Float
+    categorieId: ID
+}
+
+input CategorieInput {
+    nom: String
+}
+
+# ==== MUTATIONS ====
+
+type Mutation {
+    # Produits
+    ajouterProduit(input: ProduitInput): Produit
+    modifierProduit(id: ID!, input: ProduitInput): Produit
+    supprimerProduit(id: ID!): Boolean
+
+    # Catégories
+    ajouterCategorie(input: CategorieInput): Categorie
+    supprimerCategorie(id: ID!): Boolean
+}
